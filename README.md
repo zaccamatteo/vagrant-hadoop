@@ -1,6 +1,6 @@
 # Introduction
 
-This Vagrant project creates a VM with single node setup of Hadoop v2.3.0 with YARN installed.
+This Vagrant project creates a VM with single node setup of Hadoop with YARN installed.
 
 # Getting Started
 
@@ -8,6 +8,7 @@ This Vagrant project creates a VM with single node setup of Hadoop v2.3.0 with Y
 2. [Download and install Vagrant](http://www.vagrantup.com/downloads.html).
 3. Run ```vagrant box add centos65 https://github.com/2creatives/vagrant-centos/releases/download/v6.5.1/centos65-x86_64-20131205.box```
 4. Git clone this project, and change directory (cd) into this project (directory).
+4. Edit ```setup.sh``` to set the version of Hadoop you want to install and make sure it's available on the mirror (and if not, change it)
 5. Run ```vagrant up``` to create the VM.
 6. Run ```vagrant ssh``` to get into your VM.
 7. Run ```vagrant destroy``` when you want to destroy and get rid of the VM.
@@ -23,7 +24,7 @@ Some gotcha's.
 # Make the VM setup faster
 You can make the VM setup even faster if you pre-download the Hadoop and Oracle JDK into the /resources directory.
 
-1. /resources/hadoop-2.3.0.tar.gz
+1. /resources/hadoop-${HADOOP_VERSION}.tar.gz
 2. /resources/jdk-7u51-linux-x64.gz
 
 The setup script will automatically detect if these files (with precisely the same names) exist and use them instead. If you are using slightly different versions, you will have to modify the script accordingly.
