@@ -20,8 +20,8 @@ Some gotcha's.
 3. Make sure you have 8Gb of free memory for the VM. You may change the Vagrantfile to specify smaller memory requirements.
 4. This project has NOT been tested with the VMWare provider for Vagrant.
 5. You may change the script (setup.sh) to point to a different location for Hadoop to be downloaded from. Here is a list of mirrors: http://www.apache.org/dyn/closer.cgi/hadoop/common/.
-6. Port forwarding for HDFS is setup to 8020 -> 9000 but for some reason does not work. Firewall is down, Selinux too. 
-A workaround is to use SSH tunneling: ```ssh -L 9000:localhost:8020 vagrant@localhost -p 2222``` (password: vagrant)
+6. Port forwarding for HDFS is setup to 8020 -> 9000 but does not work - probably because Hadoop binds to a different hostname and drops connections from outside, even with the firewall down. 
+A quick workaround is to use SSH tunneling: ```ssh -L 9000:localhost:8020 vagrant@localhost -p 2222``` (password: vagrant)
 
 # Make the VM setup faster
 You can make the VM setup even faster if you pre-download the Hadoop and Oracle JDK into the /resources directory.
