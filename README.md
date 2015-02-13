@@ -8,7 +8,7 @@ This Vagrant project creates a VM with single node setup of Hadoop with YARN ins
 2. [Download and install Vagrant](http://www.vagrantup.com/downloads.html).
 3. Run ```vagrant box add centos65 https://github.com/2creatives/vagrant-centos/releases/download/v6.5.1/centos65-x86_64-20131205.box```
 4. Git clone this project, and change directory (cd) into this project (directory).
-4. Edit ```setup.sh``` to set the version of Hadoop you want to install and make sure it's available on the mirror (and if not, change it)
+4. Edit ```setup.sh``` to set the version of Hadoop you want to install
 5. Run ```vagrant up``` to create the VM.
 6. Run ```vagrant ssh``` to get into your VM.
 7. Run ```vagrant destroy``` when you want to destroy and get rid of the VM.
@@ -20,6 +20,8 @@ Some gotcha's.
 3. Make sure you have 8Gb of free memory for the VM. You may change the Vagrantfile to specify smaller memory requirements.
 4. This project has NOT been tested with the VMWare provider for Vagrant.
 5. You may change the script (setup.sh) to point to a different location for Hadoop to be downloaded from. Here is a list of mirrors: http://www.apache.org/dyn/closer.cgi/hadoop/common/.
+6. Port forwarding for HDFS is setup to 8020 -> 9000 but for some reason does not work. Firewall is down, Selinux too. 
+A workaround is to use SSH tunneling: ```ssh -L 9000:localhost:8020 vagrant@localhost -p 2222``` (password: vagrant)
 
 # Make the VM setup faster
 You can make the VM setup even faster if you pre-download the Hadoop and Oracle JDK into the /resources directory.
