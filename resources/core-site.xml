@@ -19,6 +19,6 @@
 <configuration>
  <property>
   <name>fs.defaultFS</name>
-  <value>hdfs://hadoop-yarn</value>
+  <value>hdfs://10.211.55.101</value>
  </property>
 </configuration>
