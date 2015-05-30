@@ -26,7 +26,7 @@ Some gotcha's.
 You can make the VM setup even faster if you pre-download the Hadoop and Oracle JDK into the /resources directory.
 
 1. /resources/hadoop-${HADOOP_VERSION}.tar.gz
-2. /resources/jdk-${JDK_VERSION}-linux-x64.gz
+2. /resources/jdk-7u51-linux-x64.gz
 
 The setup script will automatically detect if these files (with precisely the same names) exist and use them instead. If you are using slightly different versions, you will have to modify the script accordingly.
 

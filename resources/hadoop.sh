@@ -1,4 +1,4 @@
-export HADOOP_PREFIX=/usr/local/hadoop
+export HADOOP_PREFIX=/opt/hadoop
 export HADOOP_YARN_HOME=${HADOOP_PREFIX}
 export HADOOP_CONF_DIR=${HADOOP_PREFIX}/etc/hadoop
 export YARN_LOG_DIR=${HADOOP_YARN_HOME}/logs

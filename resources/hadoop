@@ -2,8 +2,8 @@
 # chkconfig: 2345 95 20
 # description: Hadoop 2.3.x Service
 # processname: hadoop
-HADOOP_PREFIX=/usr/local/hadoop
-HADOOP_YARN_HOME=/usr/local/hadoop
+HADOOP_PREFIX=/opt/hadoop
+HADOOP_YARN_HOME=/opt/hadoop
 HADOOP_CONF_DIR=${HADOOP_PREFIX}/etc/hadoop
 export JAVA_HOME=/usr/local/java
 
