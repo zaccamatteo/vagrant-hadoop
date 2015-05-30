@@ -6,8 +6,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.define :master do |master|
-		master.vm.box = "centos65"
-		master.vm.box_url = "https://github.com/2creatives/vagrant-centos/releases/download/v6.5.1/centos65-x86_64-20131205.box"
+		master.vm.box = "chef/centos-7.0"
 		master.vm.provider "vmware_fusion" do |v|
 			v.vmx["memsize"]  = "2048"
 			v.vmx["numvcpus"] = "2"
