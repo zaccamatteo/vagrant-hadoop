@@ -3,7 +3,7 @@ export JAVA_HOME=/usr/local/java
 export HADOOP_PREFIX=/opt/hadoop
 HADOOP_VERSION=2.7.0
 HADOOP_ARCHIVE=hadoop-${HADOOP_VERSION}.tar.gz
-JAVA_ARCHIVE=jdk-7u51-linux-x64.gz
+JAVA_ARCHIVE=jdk-8u45-linux-x64.gz
 HADOOP_MIRROR_DOWNLOAD=http://apache.miloslavbrada.cz/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
 
 function fileExists {
@@ -31,7 +31,7 @@ function installLocalJava {
 
 function installRemoteJava {
 	echo "install open jdk"
-	yum install -y java-1.7.0-openjdk.x86_64
+	yum install -y java-1.8.0-openjdk-devel
 }
 
 function installLocalHadoop {
@@ -51,7 +51,7 @@ function installRemoteHadoop {
 function setupJava {
 	echo "setting up java"
 	if fileExists $JAVA_ARCHIVE; then
-		ln -s /usr/local/jdk1.7.0_51 /usr/local/java
+		ln -s /usr/local/jdk1.8.0_45 /usr/local/java
 	else
 		ln -s /usr/lib/jvm/jre /usr/local/java
 	fi
