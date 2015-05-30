@@ -17,16 +17,16 @@ Some gotcha's.
 
 1. Make sure you download Vagrant v1.4.3 or higher.
 2. Make sure when you clone this project, you preserve the Unix/OSX end-of-line (EOL) characters. The scripts will fail with Windows EOL characters.
-3. Make sure you have 8Gb of free memory for the VM. You may change the Vagrantfile to specify smaller memory requirements.
+3. Defaults for the VM are 2GB of ram and 2 cpus. You may change the Vagrantfile to specify other requirements.
 4. This project has NOT been tested with the VMWare provider for Vagrant.
 5. You may change the script (setup.sh) to point to a different location for Hadoop to be downloaded from. Here is a list of mirrors: http://www.apache.org/dyn/closer.cgi/hadoop/common/.
-6. Use the IP to get to the cluster, not a hostname. (i.e. ```10.211.55.101:8020```, as specified in ```core-site.xml```) 
+6. Use the IP to get to the cluster, not a hostname. (i.e. ```10.211.55.101:8020```, as specified in ```core-site.xml```)
 
 # Make the VM setup faster
 You can make the VM setup even faster if you pre-download the Hadoop and Oracle JDK into the /resources directory.
 
 1. /resources/hadoop-${HADOOP_VERSION}.tar.gz
-2. /resources/jdk-7u51-linux-x64.gz
+2. /resources/jdk-${JDK_VERSION}-linux-x64.gz
 
 The setup script will automatically detect if these files (with precisely the same names) exist and use them instead. If you are using slightly different versions, you will have to modify the script accordingly.
 
@@ -42,26 +42,26 @@ You can check the following URLs to monitor the Hadoop daemons.
 Note that you point your browser to "localhost" because when the VM is created, it is specified to perform port forwarding from your desktop to the VM.
 
 # Vagrant boxes
-A list of available Vagrant boxes is shown at http://www.vagrantbox.es. 
+A list of available Vagrant boxes is shown at http://www.vagrantbox.es.
 
 # Vagrant box location
 The Vagrant box is downloaded to the ~/.vagrant.d/boxes directory. On Windows, this is C:/Users/{your-username}/.vagrant.d/boxes.
 
 # References
-This project was kludge together with great pointers from all around the internet. 
+This project was kludge together with great pointers from all around the internet.
 
-1. http://hadoop.apache.org/docs/r2.3.0/hadoop-project-dist/hadoop-common/ClusterSetup.html 
+1. http://hadoop.apache.org/docs/r2.3.0/hadoop-project-dist/hadoop-common/ClusterSetup.html
 2. http://wiki.apache.org/hadoop/BindException
 3. https://www.centos.org/docs/5/html/5.1/Deployment_Guide/s1-server-ports.html
-4. http://www.cyberciti.biz/faq/disable-linux-firewall-under-centos-rhel-fedora/ 
-5. http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH4/4.2.0/CDH4-Installation-Guide/cdh4ig_topic_11_2.html 
-6. http://blog.cloudera.com/blog/2009/08/hadoop-default-ports-quick-reference/ 
-7. http://linuxgalaxy.com/make-life-easier-create-a-service-on-linux/ 
-8. http://codingrecipes.com/service-x-does-not-support-chkconfig 
-9. http://linux.about.com/library/cmd/blcmdl8_chkconfig.htm 
-10. http://stackoverflow.com/questions/20901442/how-to-install-jdk-in-centos 
-11. http://serverfault.com/questions/119869/turning-off-cp-copy-commands-interactive-mode-cp-overwrite 
-12. http://askubuntu.com/questions/45349/how-to-extract-files-to-another-directory-using-tar-command 
+4. http://www.cyberciti.biz/faq/disable-linux-firewall-under-centos-rhel-fedora/
+5. http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH4/4.2.0/CDH4-Installation-Guide/cdh4ig_topic_11_2.html
+6. http://blog.cloudera.com/blog/2009/08/hadoop-default-ports-quick-reference/
+7. http://linuxgalaxy.com/make-life-easier-create-a-service-on-linux/
+8. http://codingrecipes.com/service-x-does-not-support-chkconfig
+9. http://linux.about.com/library/cmd/blcmdl8_chkconfig.htm
+10. http://stackoverflow.com/questions/20901442/how-to-install-jdk-in-centos
+11. http://serverfault.com/questions/119869/turning-off-cp-copy-commands-interactive-mode-cp-overwrite
+12. http://askubuntu.com/questions/45349/how-to-extract-files-to-another-directory-using-tar-command
 
 # Copyright Stuff
 Copyright 2014 Jee Vang
