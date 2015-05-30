@@ -1,6 +1,6 @@
 #!/bin/bash
 # chkconfig: 2345 95 20
-# description: Hadoop 2.3.x Service
+# description: Hadoop 2.7.0 Service
 # processname: hadoop
 HADOOP_PREFIX=/opt/hadoop
 HADOOP_YARN_HOME=/opt/hadoop
@@ -8,41 +8,41 @@ HADOOP_CONF_DIR=${HADOOP_PREFIX}/etc/hadoop
 export JAVA_HOME=/usr/local/java
 
 function start {
- echo "Starting namenode, datanode, resourcemanager, nodemanager, proxyserver and historyserver"
- $HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode
- $HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start datanode
- $HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR start resourcemanager
- $HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR start nodemanager
- $HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR start proxyserver
- $HADOOP_PREFIX/sbin/mr-jobhistory-daemon.sh start historyserver --config $HADOOP_CONF_DIR
+	echo "Starting namenode, datanode, resourcemanager, nodemanager, proxyserver and historyserver"
+	$HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start namenode
+	$HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs start datanode
+	$HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR start resourcemanager
+	$HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR start nodemanager
+	$HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR start proxyserver
+	$HADOOP_PREFIX/sbin/mr-jobhistory-daemon.sh start historyserver --config $HADOOP_CONF_DIR
 }
 
 function stop {
- echo "Stopping namenode, datanode, resourcemanager, nodemanager, proxyserver and historyserver"
- $HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs stop namenode
- $HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs stop datanode
- $HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR stop resourcemanager
- $HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR stop nodemanager
- $HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR stop proxyserver
- $HADOOP_PREFIX/sbin/mr-jobhistory-daemon.sh stop historyserver --config $HADOOP_CONF_DIR
+	echo "Stopping namenode, datanode, resourcemanager, nodemanager, proxyserver and historyserver"
+	$HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs stop namenode
+	$HADOOP_PREFIX/sbin/hadoop-daemon.sh --config $HADOOP_CONF_DIR --script hdfs stop datanode
+	$HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR stop resourcemanager
+	$HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR stop nodemanager
+	$HADOOP_YARN_HOME/sbin/yarn-daemon.sh --config $HADOOP_CONF_DIR stop proxyserver
+	$HADOOP_PREFIX/sbin/mr-jobhistory-daemon.sh stop historyserver --config $HADOOP_CONF_DIR
 }
 
 function restart {
- echo "Restarting namenode, datanode, resourcemanager, nodemanager, proxyserver and historyserver"
- stop
- start
+	echo "Restarting namenode, datanode, resourcemanager, nodemanager, proxyserver and historyserver"
+	stop
+	start
 }
 
 case "$1" in
 start)
- start
+	start
 ;;
 stop)
- stop
+	stop
 ;;
 restart)
- stop
- start
+	stop
+	start
 ;;
 *)
 echo "Hadoop Service"

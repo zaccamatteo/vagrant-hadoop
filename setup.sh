@@ -63,8 +63,6 @@ function setupHadoop {
 	mkdir /tmp/hadoop-logs
 	mkdir /tmp/hadoop-datanode
 	ln -s /opt/hadoop-${HADOOP_VERSION} /opt/hadoop
-
-
 	echo "copying over hadoop configuration files"
 	cp -f /vagrant/resources/core-site.xml /opt/hadoop/etc/hadoop
 	cp -f /vagrant/resources/hdfs-site.xml /opt/hadoop/etc/hadoop
@@ -126,6 +124,8 @@ function installJava {
 }
 
 function initHdfsTempDir {
+	echo "waiting 30 seconds for nodes to complete startup"
+	sleep 30
 	$HADOOP_PREFIX/bin/hdfs --config $HADOOP_PREFIX/etc/hadoop dfs -mkdir /tmp
 	$HADOOP_PREFIX/bin/hdfs --config $HADOOP_PREFIX/etc/hadoop dfs -chmod -R 777 /tmp
 }
