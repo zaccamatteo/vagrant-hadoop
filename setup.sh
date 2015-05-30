@@ -37,7 +37,7 @@ function installRemoteJava {
 function installLocalHadoop {
 	echo "install hadoop from local file"
 	FILE=/vagrant/resources/$HADOOP_ARCHIVE
-	tar -xzf $FILE -C /usr/local
+	tar -xzf $FILE -C /opt
 	echo here is hadoop stuff
 	ls /usr/local
 }
@@ -45,7 +45,7 @@ function installLocalHadoop {
 function installRemoteHadoop {
 	echo "install hadoop from remote file"
 	curl -o /home/vagrant/hadoop-${HADOOP_VERSION}.tar.gz -O -L $HADOOP_MIRROR_DOWNLOAD
-	tar -xzf /home/vagrant/hadoop-${HADOOP_VERSION}.tar.gz -C /usr/local
+	tar -xzf /home/vagrant/hadoop-${HADOOP_VERSION}.tar.gz -C /opt
 }
 
 function setupJava {
