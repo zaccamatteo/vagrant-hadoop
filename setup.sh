@@ -3,7 +3,7 @@ export JAVA_HOME=/usr/local/java
 export HADOOP_PREFIX=/opt/hadoop
 HADOOP_VERSION=2.7.0
 HADOOP_ARCHIVE=hadoop-${HADOOP_VERSION}.tar.gz
-JAVA_ARCHIVE=jdk-8u45-linux-x64.gz
+JAVA_ARCHIVE=jdk-8u45-linux-x64.tar.gz
 HADOOP_MIRROR_DOWNLOAD=http://apache.miloslavbrada.cz/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
 
 function fileExists {
@@ -38,8 +38,8 @@ function installLocalHadoop {
 	echo "install hadoop from local file"
 	FILE=/vagrant/resources/$HADOOP_ARCHIVE
 	tar -xzf $FILE -C /opt
-	echo here is hadoop stuff
-	ls /usr/local
+	echo "here is hadoop stuff"
+	ls /opt
 }
 
 function installRemoteHadoop {
