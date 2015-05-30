@@ -1,7 +1,7 @@
 #!/bin/bash -x
 export JAVA_HOME=/usr/local/java
 export HADOOP_PREFIX=/opt/hadoop
-HADOOP_VERSION=2.6.0
+HADOOP_VERSION=2.7.0
 HADOOP_ARCHIVE=hadoop-${HADOOP_VERSION}.tar.gz
 JAVA_ARCHIVE=jdk-7u51-linux-x64.gz
 HADOOP_MIRROR_DOWNLOAD=http://apache.miloslavbrada.cz/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
