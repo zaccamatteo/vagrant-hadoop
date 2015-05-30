@@ -77,19 +77,14 @@ function setupHadoop {
 	cp -f /vagrant/resources/mr-jobhistory-daemon.sh /opt/hadoop/sbin
 	echo "modifying permissions on local file system"
 	chown -fR vagrant /tmp/hadoop-namenode
-    chown -fR vagrant /tmp/hadoop-logs
-    chown -fR vagrant /tmp/hadoop-datanode
+	chown -fR vagrant /tmp/hadoop-logs
+	chown -fR vagrant /tmp/hadoop-datanode
 	mkdir /opt/hadoop-${HADOOP_VERSION}/logs
 	chown -fR vagrant /opt/hadoop-${HADOOP_VERSION}/logs
 }
 
 function setupEnvVars {
 	echo "creating java environment variables"
-	#if fileExists $JAVA_ARCHIVE; then
-	#	echo export JAVA_HOME=/usr/local/jdk1.7.0_51 >> /etc/profile.d/java.sh
-	#else
-	#	echo export JAVA_HOME=/usr/lib/jvm/jre >> /etc/profile.d/java.sh
-	#fi
 	echo export JAVA_HOME=/usr/local/java >> /etc/profile.d/java.sh
 	echo export PATH=\${JAVA_HOME}/bin:\${PATH} >> /etc/profile.d/java.sh
 
