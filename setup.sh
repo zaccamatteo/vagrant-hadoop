@@ -1,6 +1,9 @@
 #!/bin/bash -x
-export JAVA_HOME=/usr/local/java
-export HADOOP_PREFIX=/opt/hadoop
+JAVA_HOME=/usr/local/java
+HADOOP_HOME=/opt/hadoop
+HADOOP_USER="hduser"
+HADOOP_GROUP="hadoop"
+HDUSER_HOME="/home/${HADOOP_USER}"
 HADOOP_VERSION=2.7.0
 HADOOP_ARCHIVE=hadoop-${HADOOP_VERSION}.tar.gz
 JAVA_ARCHIVE=jdk-8u45-linux-x64.tar.gz
@@ -8,19 +11,37 @@ HADOOP_MIRROR_DOWNLOAD=http://apache.miloslavbrada.cz/hadoop/common/hadoop-${HAD
 
 function fileExists {
 	FILE=/vagrant/resources/$1
-	if [ -e $FILE ]
-	then
+	if [ -e $FILE ]; then
 		return 0
 	else
 		return 1
 	fi
 }
 
-function disableFirewall {
+function disableFirewallAndIpv6 {
 	echo "disabling firewall"
-	service iptables save
-	service iptables stop
-	chkconfig iptables off
+	systemctl disable firewalld
+	systemctl stop firewalld
+	echo "disabling ipv6"
+	sysctl -w net.ipv6.conf.all.disable_ipv6=1
+	sysctl -w net.ipv6.conf.default.disable_ipv6=1
+	sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+}
+
+function installHadoop {
+	if fileExists $HADOOP_ARCHIVE; then
+		installLocalHadoop
+	else
+		installRemoteHadoop
+	fi
+}
+
+function installJava {
+	if fileExists $JAVA_ARCHIVE; then
+		installLocalJava
+	else
+		installRemoteJava
+	fi
 }
 
 function installLocalJava {
@@ -58,79 +79,53 @@ function setupJava {
 }
 
 function setupHadoop {
-	echo "creating hadoop directories"
-	mkdir /tmp/hadoop-namenode
-	mkdir /tmp/hadoop-logs
-	mkdir /tmp/hadoop-datanode
-	ln -s /opt/hadoop-${HADOOP_VERSION} /opt/hadoop
+	ln -s /opt/hadoop-${HADOOP_VERSION} ${HADOOP_HOME}
+	chmod 777 ${HADOOP_HOME}
+	echo "creating hadoop group and hduser user"
+	groupadd ${HADOOP_GROUP}
+	useradd -g ${HADOOP_GROUP} ${HADOOP_USER}
+	sudo -u ${HADOOP_USER} mkdir ${HDUSER_HOME}/.ssh
+	sudo -u ${HADOOP_USER} ssh-keygen -t rsa -f ${HDUSER_HOME}/.ssh/id_rsa -P ""
+	sudo -u ${HADOOP_USER} cat ${HDUSER_HOME}/.ssh/id_rsa.pub >> ${HDUSER_HOME}/.ssh/authorized_keys
+	sudo -u ${HADOOP_USER} ssh-keyscan -H localhost >> ${HDUSER_HOME}/.ssh/known_hosts
+	sudo -u ${HADOOP_USER} ssh-keyscan -H 0.0.0.0 >> ${HDUSER_HOME}/.ssh/known_hosts
 	echo "copying over hadoop configuration files"
-	cp -f /vagrant/resources/core-site.xml /opt/hadoop/etc/hadoop
-	cp -f /vagrant/resources/hdfs-site.xml /opt/hadoop/etc/hadoop
-	cp -f /vagrant/resources/mapred-site.xml /opt/hadoop/etc/hadoop
-	cp -f /vagrant/resources/yarn-site.xml /opt/hadoop/etc/hadoop
-	cp -f /vagrant/resources/slaves /opt/hadoop/etc/hadoop
-	cp -f /vagrant/resources/hadoop-env.sh /opt/hadoop/etc/hadoop
-	cp -f /vagrant/resources/yarn-env.sh /opt/hadoop/etc/hadoop
-	cp -f /vagrant/resources/yarn-daemon.sh /opt/hadoop/sbin
-	cp -f /vagrant/resources/mr-jobhistory-daemon.sh /opt/hadoop/sbin
+	cp -f /vagrant/resources/conf/* ${HADOOP_HOME}/etc/hadoop
 	echo "modifying permissions on local file system"
-	chown -fR vagrant /tmp/hadoop-namenode
-	chown -fR vagrant /tmp/hadoop-logs
-	chown -fR vagrant /tmp/hadoop-datanode
-	mkdir /opt/hadoop-${HADOOP_VERSION}/logs
-	chown -fR vagrant /opt/hadoop-${HADOOP_VERSION}/logs
+	mkdir ${HADOOP_HOME}/logs
+	chown -fR hduser:hadoop /opt/hadoop-${HADOOP_VERSION}/
 }
 
 function setupEnvVars {
-	echo "creating java environment variables"
-	echo export JAVA_HOME=/usr/local/java >> /etc/profile.d/java.sh
-	echo export PATH=\${JAVA_HOME}/bin:\${PATH} >> /etc/profile.d/java.sh
-
-	echo "creating hadoop environment variables"
-	cp -f /vagrant/resources/hadoop.sh /etc/profile.d/hadoop.sh
-}
-
-function setupHadoopService {
-	echo "setting up hadoop service"
-	cp -f /vagrant/resources/hadoop /etc/init.d/hadoop
-	chmod 777 /etc/init.d/hadoop
-	chkconfig --level 2345 hadoop on
+	echo "setting up java environment variables"
+	echo export JAVA_HOME=${JAVA_HOME} >> /etc/profile.d/java.sh
+	echo export PATH=\${PATH}:\${JAVA_HOME}/bin >> /etc/profile.d/java.sh
+	source /etc/profile.d/java.sh
 }
 
 function setupNameNode {
 	echo "setting up namenode"
-	/opt/hadoop-${HADOOP_VERSION}/bin/hdfs namenode -format myhadoop
+	sudo -Eu ${HADOOP_USER} ${HADOOP_HOME}/bin/hdfs namenode -format
+}
+
+function setupHadoopService {
+	echo "setting up hadoop service"
+	cp -f /vagrant/resources/hadoop.service /etc/systemd/system/
+	echo JAVA_HOME=${JAVA_HOME} >> /etc/systemd/system/hadoop.conf
+	echo HADOOP_HOME=${HADOOP_HOME} >> /etc/systemd/system/hadoop.conf
 }
 
 function startHadoopService {
 	echo "starting hadoop service"
-	service hadoop start
+	systemctl enable hadoop.service
+	systemctl start hadoop.service
 }
 
-function installHadoop {
-	if fileExists $HADOOP_ARCHIVE; then
-		installLocalHadoop
-	else
-		installRemoteHadoop
-	fi
+function initHdfsDirs {
+	sudo -Eu ${HADOOP_USER} ${HADOOP_HOME}/bin/hdfs dfs -mkdir -p /user/${HADOOP_USER}
 }
 
-function installJava {
-	if fileExists $JAVA_ARCHIVE; then
-		installLocalJava
-	else
-		installRemoteJava
-	fi
-}
-
-function initHdfsTempDir {
-	echo "waiting 30 seconds for nodes to complete startup"
-	sleep 30
-	$HADOOP_PREFIX/bin/hdfs --config $HADOOP_PREFIX/etc/hadoop dfs -mkdir /tmp
-	$HADOOP_PREFIX/bin/hdfs --config $HADOOP_PREFIX/etc/hadoop dfs -chmod -R 777 /tmp
-}
-
-disableFirewall
+disableFirewallAndIpv6
 installJava
 installHadoop
 setupJava
@@ -139,4 +134,4 @@ setupEnvVars
 setupNameNode
 setupHadoopService
 startHadoopService
-initHdfsTempDir
+initHdfsDirs
