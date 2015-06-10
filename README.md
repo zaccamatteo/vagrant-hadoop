@@ -11,7 +11,8 @@ This Vagrant project creates a VM with single node setup of Hadoop with YARN ins
 4. Edit ```setup.sh``` to set the version of Hadoop you want to install
 5. Run ```vagrant up``` to create the VM.
 6. Run ```vagrant ssh``` to get into your VM.
-7. Run ```vagrant destroy``` when you want to destroy and get rid of the VM.
+7. Run ```sudo -iu hduser``` once inside the VM to log in as the user who started hadoop.
+8. Run ```vagrant destroy``` when you want to destroy and get rid of the VM.
 
 Some gotcha's.
 
@@ -20,7 +21,8 @@ Some gotcha's.
 3. Defaults for the VM are 2GB of ram and 2 cpus. You may change the Vagrantfile to specify other requirements.
 4. This project has NOT been tested with the VMWare provider for Vagrant.
 5. You may change the script (setup.sh) to point to a different location for Hadoop to be downloaded from. Here is a list of mirrors: http://www.apache.org/dyn/closer.cgi/hadoop/common/.
-6. Use the IP to get to the cluster, not a hostname. (i.e. ```10.211.55.101:8020```, as specified in ```core-site.xml```)
+6. The script automatically creates the hduser user and starts hadoop under its control.
+7. A systemd service is provided to start and stop hadoop. It is enabled by default.
 
 # Make the VM setup faster
 You can make the VM setup even faster if you pre-download the Hadoop and Oracle JDK into the /resources directory.
@@ -34,10 +36,7 @@ The setup script will automatically detect if these files (with precisely the sa
 You can check the following URLs to monitor the Hadoop daemons.
 
 1. [NameNode] (http://localhost:50070/dfshealth.html)
-2. [DataNode] (http://localhost:50075/dataNodeHome.jsp)
 3. [ResourceManager] (http://localhost:8088/cluster)
-4. [NodeManager] (http://localhost:8042/node)
-5. [JobHistory] (http://localhost:19888/jobhistory)
 
 Note that you point your browser to "localhost" because when the VM is created, it is specified to perform port forwarding from your desktop to the VM.
 
