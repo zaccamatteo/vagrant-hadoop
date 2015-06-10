@@ -1,12 +1,12 @@
 #!/bin/bash -x
 JAVA_HOME=/usr/local/java
+JAVA_ARCHIVE=jdk-8u45-linux-x64.tar.gz
 HADOOP_HOME=/opt/hadoop
-HADOOP_USER="hduser"
 HADOOP_GROUP="hadoop"
+HADOOP_USER="hduser"
 HDUSER_HOME="/home/${HADOOP_USER}"
 HADOOP_VERSION=2.7.0
 HADOOP_ARCHIVE=hadoop-${HADOOP_VERSION}.tar.gz
-JAVA_ARCHIVE=jdk-8u45-linux-x64.tar.gz
 HADOOP_MIRROR_DOWNLOAD=http://apache.miloslavbrada.cz/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz
 
 function fileExists {
