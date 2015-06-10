@@ -1,0 +1,14 @@
+[Unit]
+Description="Hadoop service"
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=hduser
+Group=hadoop
+EnvironmentFile=/etc/systemd/system/hadoop.conf
+ExecStart=/opt/hadoop/sbin/start-dfs.sh ; /opt/hadoop/sbin/start-yarn.sh
+ExecStop=/opt/hadoop/sbin/stop-dfs.sh ; /opt/hadoop/sbin/stop-yarn.sh
+
+[Install]
+WantedBy=multi-user.target
