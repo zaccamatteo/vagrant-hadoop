@@ -93,7 +93,7 @@ function setupHadoop {
 	cp -f /vagrant/resources/conf/* ${HADOOP_HOME}/etc/hadoop
 	echo "modifying permissions on local file system"
 	mkdir ${HADOOP_HOME}/logs
-	chown -fR hduser:hadoop /opt/hadoop-${HADOOP_VERSION}/
+	chown -fR ${HADOOP_USER}:${HADOOP_GROUP} /opt/hadoop-${HADOOP_VERSION}/
 }
 
 function setupEnvVars {
