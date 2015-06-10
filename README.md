@@ -23,6 +23,7 @@ Some gotcha's.
 5. You may change the script (setup.sh) to point to a different location for Hadoop to be downloaded from. Here is a list of mirrors: http://www.apache.org/dyn/closer.cgi/hadoop/common/.
 6. The script automatically creates the hduser user and starts hadoop under its control.
 7. A systemd service is provided to start and stop hadoop. It is enabled by default.
+8. By default the script (setup.sh) install hadoop inside the /opt/hadoop directory. You may change this specifying another directory inside the HADOOP_HOME variable.
 
 # Make the VM setup faster
 You can make the VM setup even faster if you pre-download the Hadoop and Oracle JDK into the /resources directory.
