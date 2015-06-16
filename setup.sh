@@ -84,6 +84,7 @@ function setupHadoop {
 	echo "creating hadoop group and hduser user"
 	groupadd ${HADOOP_GROUP}
 	useradd -g ${HADOOP_GROUP} ${HADOOP_USER}
+	sudo -u ${HADOOP_USER} ln -s /hadoop-shared /home/${HADOOP_USER}/shared
 	sudo -u ${HADOOP_USER} mkdir ${HDUSER_HOME}/.ssh
 	sudo -u ${HADOOP_USER} ssh-keygen -t rsa -f ${HDUSER_HOME}/.ssh/id_rsa -P ""
 	sudo -u ${HADOOP_USER} cat ${HDUSER_HOME}/.ssh/id_rsa.pub >> ${HDUSER_HOME}/.ssh/authorized_keys
@@ -101,6 +102,10 @@ function setupEnvVars {
 	echo export JAVA_HOME=${JAVA_HOME} >> /etc/profile.d/java.sh
 	echo export PATH=\${PATH}:\${JAVA_HOME}/bin >> /etc/profile.d/java.sh
 	source /etc/profile.d/java.sh
+	echo "setting up hadoop environment variables"
+	echo export HADOOP_HOME=${HADOOP_HOME} >> /etc/profile.d/hadoop.sh
+	echo export PATH=\${PATH}:\${HADOOP_HOME}/bin >> /etc/profile.d/hadoop.sh
+	source /etc/profile.d/hadoop.sh
 }
 
 function setupNameNode {
