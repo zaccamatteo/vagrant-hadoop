@@ -2,3 +2,4 @@
 /resources/hadoop-2.7.0.tar.gz
 /resources/jdk-8u45-linux-x64.tar.gz
 /shared
+vagrant.yml
