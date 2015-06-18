@@ -26,6 +26,7 @@ This Vagrant project creates a VM with single node setup of Hadoop with YARN ins
 3. A systemd service is provided to start and stop hadoop. It is enabled by default.
 4. By default the script (setup.sh) install hadoop inside the /opt/hadoop directory. You may change this specifying another directory inside the HADOOP_HOME variable.
 5. You may define custom configs in a vagrant.yml file and then use them inside the Vagrantfile. I currently use it in order to manage synced folders.
+6. Hadoop binaries are added to path for convenience.
 
 # Make the VM setup faster
 You can make the VM setup even faster if you pre-download the Hadoop and Oracle JDK into the /resources directory.
