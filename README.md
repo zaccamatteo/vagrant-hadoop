@@ -20,7 +20,9 @@ This Vagrant project creates a VM with single node setup of Hadoop with YARN ins
 2. Make sure when you clone this project, you preserve the Unix/OSX end-of-line (EOL) characters. The scripts will fail with Windows EOL characters.
 3. This project has NOT been tested with the VMWare provider for Vagrant.
 4. You may change the script (setup.sh) to point to a different location for Hadoop to be downloaded from. Here is a list of mirrors: http://www.apache.org/dyn/closer.cgi/hadoop/common/.
-#### In this fork:
+
+### In this fork:
+
 5. Defaults for the VM are 2GB of ram and 2 cpus. You may change the Vagrantfile to specify other requirements.
 6. The script automatically creates the hduser user and starts hadoop under its control.
 7. A systemd service is provided to start and stop hadoop. It is enabled by default.
