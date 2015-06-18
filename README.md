@@ -21,10 +21,10 @@ Some gotcha's.
 3. Defaults for the VM are 2GB of ram and 2 cpus. You may change the Vagrantfile to specify other requirements.
 4. This project has NOT been tested with the VMWare provider for Vagrant.
 5. You may change the script (setup.sh) to point to a different location for Hadoop to be downloaded from. Here is a list of mirrors: http://www.apache.org/dyn/closer.cgi/hadoop/common/.
-6. The script automatically creates the hduser user and starts hadoop under its control.
-7. A systemd service is provided to start and stop hadoop. It is enabled by default.
-8. By default the script (setup.sh) install hadoop inside the /opt/hadoop directory. You may change this specifying another directory inside the HADOOP_HOME variable.
-9. You may define custom configs in a vagrant.yml file and then use them inside the Vagrantfile. I currently use it in order to manage synced folders.
+6. *The script automatically creates the hduser user and starts hadoop under its control.*
+7. *A systemd service is provided to start and stop hadoop. It is enabled by default.*
+8. *By default the script (setup.sh) install hadoop inside the /opt/hadoop directory. You may change this specifying another directory inside the HADOOP_HOME variable.*
+9. *You may define custom configs in a vagrant.yml file and then use them inside the Vagrantfile. I currently use it in order to manage synced folders.*
 
 # Make the VM setup faster
 You can make the VM setup even faster if you pre-download the Hadoop and Oracle JDK into the /resources directory.
