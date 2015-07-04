@@ -103,6 +103,7 @@ function setupEnvVars {
 	source /etc/profile.d/java.sh
 	echo "setting up hadoop environment variables"
 	echo export HADOOP_HOME=${HADOOP_HOME} >> /etc/profile.d/hadoop.sh
+	echo export HADOOP_CLASSPATH=${JAVA_HOME}/lib/tools.jar >> /etc/profile.d/hadoop.sh
 	echo export PATH=\${PATH}:\${HADOOP_HOME}/bin >> /etc/profile.d/hadoop.sh
 	source /etc/profile.d/hadoop.sh
 }
