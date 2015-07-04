@@ -14,17 +14,21 @@ This Vagrant project creates a VM with single node setup of Hadoop with YARN ins
 7. Run ```sudo -iu hduser``` once inside the VM to log in as the user who started hadoop.
 8. Run ```vagrant destroy``` when you want to destroy and get rid of the VM.
 
-Some gotcha's.
+## Some gotchas:
 
 1. Make sure you download Vagrant v1.4.3 or higher.
 2. Make sure when you clone this project, you preserve the Unix/OSX end-of-line (EOL) characters. The scripts will fail with Windows EOL characters.
-3. Defaults for the VM are 2GB of ram and 2 cpus. You may change the Vagrantfile to specify other requirements.
-4. This project has NOT been tested with the VMWare provider for Vagrant.
-5. You may change the script (setup.sh) to point to a different location for Hadoop to be downloaded from. Here is a list of mirrors: http://www.apache.org/dyn/closer.cgi/hadoop/common/.
-6. The script automatically creates the hduser user and starts hadoop under its control.
-7. A systemd service is provided to start and stop hadoop. It is enabled by default.
-8. By default the script (setup.sh) install hadoop inside the /opt/hadoop directory. You may change this specifying another directory inside the HADOOP_HOME variable.
-9. You may define custom configs in a vagrant.yml file and then use them inside the Vagrantfile. I currently use it in order to manage synced folders.
+3. This project has NOT been tested with the VMWare provider for Vagrant.
+4. You may change the script (setup.sh) to point to a different location for Hadoop to be downloaded from. Here is a list of mirrors: http://www.apache.org/dyn/closer.cgi/hadoop/common/.
+
+### In this fork:
+
+1. Defaults for the VM are 2GB of ram and 2 cpus. You may change the Vagrantfile to specify other requirements.
+2. The script automatically creates the hduser user and starts hadoop under its control.
+3. A systemd service is provided to start and stop hadoop. It is enabled by default.
+4. By default the script (setup.sh) install hadoop inside the /opt/hadoop directory. You may change this specifying another directory inside the HADOOP_HOME variable.
+5. You may define custom configs in a vagrant.yml file and then use them inside the Vagrantfile. I currently use it in order to manage synced folders.
+6. Hadoop binaries are added to path for convenience.
 
 # Make the VM setup faster
 You can make the VM setup even faster if you pre-download the Hadoop and Oracle JDK into the /resources directory.
