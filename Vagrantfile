@@ -28,6 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		hdvm.vm.network "forwarded_port", guest: 50070, host: 50070
 		hdvm.vm.network "forwarded_port", guest: 9000, host: 9000
 		hdvm.vm.network "forwarded_port", guest: 8088, host: 8088
+		hdvm.vm.network "forwarded_port", guest: 8032, host: 8032
 
 		if not custom_configs.empty?
 			synced_folder = custom_configs['synced_folder']
