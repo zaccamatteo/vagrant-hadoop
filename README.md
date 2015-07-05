@@ -23,7 +23,7 @@ This Vagrant project creates a VM with single node setup of Hadoop with YARN ins
 
 ### In this fork:
 
-1. Defaults for the VM are 2GB of ram and 2 cpus. You may change the Vagrantfile to specify other requirements.
+1. Defaults for the VM are 2GB of ram and 4 cpus. You may change the Vagrantfile to specify other requirements.
 2. The script automatically creates the hduser user and starts hadoop under its control.
 3. A systemd service is provided to start and stop hadoop. It is enabled by default.
 4. By default the script (setup.sh) install hadoop inside the /opt/hadoop directory. You may change this specifying another directory inside the HADOOP_HOME variable.

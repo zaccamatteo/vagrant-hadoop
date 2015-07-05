@@ -18,11 +18,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 		hdvm.vm.box = "chef/centos-7.0"
 		hdvm.vm.provider "vmware_fusion" do |v|
 			v.vmx["memsize"]  = "2048"
-			v.vmx["numvcpus"] = "2"
+			v.vmx["numvcpus"] = "4"
 		end
 		hdvm.vm.provider "virtualbox" do |v|
 			v.name = "centos-7_hadoop"
-			v.customize ["modifyvm", :id, "--memory", "2048", "--cpus", "2"]
+			v.customize ["modifyvm", :id, "--memory", "2048", "--cpus", "4"]
 		end
 		hdvm.vm.provision :shell, path: 'setup.sh'
 		hdvm.vm.network "forwarded_port", guest: 50070, host: 50070

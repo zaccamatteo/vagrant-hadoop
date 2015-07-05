@@ -20,5 +20,8 @@
 	<property>
 		<name>mapreduce.framework.name</name>
 		<value>yarn</value>
+
+		<name>mapred.child.java.opts</name>
+		<value>-Xmx1024m</value>
 	</property>
 </configuration>
