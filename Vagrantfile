@@ -15,7 +15,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	config.vm.define :hdvm do |hdvm|
-		hdvm.vm.box = "chef/centos-7.0"
+		hdvm.vm.box = "bento/centos-7.1"
 		hdvm.vm.provider "vmware_fusion" do |v|
 			v.vmx["memsize"]  = "2048"
 			v.vmx["numvcpus"] = "4"
